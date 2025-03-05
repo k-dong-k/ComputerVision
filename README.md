@@ -77,7 +77,7 @@ if key == ord('q'): # 'q' 키가 들어오면 루프를 빠져나감
 ```
 
 전체 코드
-'''python
+```python
 import cv2 as cv
 import sys
 import numpy as np
