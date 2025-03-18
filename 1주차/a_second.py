@@ -25,10 +25,8 @@ while True:
     cv.imshow('Original & Grayscale', merged)
     
     key = cv.waitKey(1) # 1밀리초 동안 키보드 입력 기다림
-    if key == ord('c'): # 'c' 키가 들어오면 프레임을 리스트에 추가
-        frames.append(frame)
-        
-    elif key == ord('q'): # 'q' 키가 들어오면 루프를 빠져나감
+ 
+    if key == ord('q'): # 'q' 키가 들어오면 루프를 빠져나감
         break
 
 
