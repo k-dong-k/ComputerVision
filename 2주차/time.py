@@ -23,13 +23,6 @@ def my_cvtGray2(bgr_img):
 memory_usage('#0') # 실행 전
 img = cv.imread('soccer.jpg')
 
-# cp = (img.shape[1] / 2, img.shape[0] / 2) # 영상의 가로 1/2, 세로 1/2
-rot = cv.getRotationMatrix2D(:, 45, 1.5) # 20도 회전, 스케일 0.5배
-cv.imshow('img', img)
-
-cv.waitKey()
-cv.destroyAllWindows()
-
 memory_usage('#1') # 이미지 메모리 체크
 
 start = time.time()

@@ -11,7 +11,7 @@ dst = cv.warpAffine(img, rot, (int(col * 1.5), int(row * 1.5)), flags = cv.INTER
 
 if img.shape[0] != dst.shape[0]:
     dst = cv.resize(dst, (int(col * 1.5), img.shape[0]))
-    
+  
 result = np.hstack([img, dst])
 
 cv.imshow('result', result)
