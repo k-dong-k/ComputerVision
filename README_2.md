@@ -13,3 +13,5 @@ cv.imread()를 사용하여 이미지 불러옴
 Cv.cvtColor()를 사용하여 그레이스케일로 변환
 
      gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY) 
+
+
