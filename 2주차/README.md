@@ -26,8 +26,12 @@ Cv.threshold()를 사용하여 이진화,  Cv.calcHist()를 사용하여 히스�
 import cv2 as cv
 import matplotlib.pyplot as plt
 
-img = cv.imread('soccer.jpg')
+img = cv.imread('mistyroad.jpg')
 gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY) 
+
+gh = cv.calcHist([gray],[0],None,[256],[0,256])
+plt.plot(gh,color = 'b', linewidth = 1)
+plt.show()
 
 t,bin_img = cv.threshold(gray, 127, 255, cv.THRESH_BINARY + cv.THRESH_OTSU)
 
@@ -39,9 +43,16 @@ plt.show()
 
 결과 화면
 
+그레이 히스토그램
+
+![image](https://github.com/user-attachments/assets/913dc711-f561-4bf7-a29e-0b25664d8fa9)
+
+
+
 이진화의 경우 0과1로만 나오기떄문에 히스토그램이 아래와 같은 형태로 나옴
 
-![image](https://github.com/user-attachments/assets/74a4295f-f792-4482-a20a-34f44a528f2d)
+![image](https://github.com/user-attachments/assets/99e102a7-6680-47cf-ab07-080794a28920)
+
 
 
 ---
