@@ -160,4 +160,3 @@ while(True):
 결과 화면
 
 ![image](https://github.com/user-attachments/assets/48cdb493-445c-48fa-82a7-3d268eab0b44)
-
