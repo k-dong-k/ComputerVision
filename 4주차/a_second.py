@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 img = cv.imread('edgeDetectionImage.jpg')
-img_rgb = cv.cvtColor(img, cv.COLOR_BGR2RGB)  # OpenCV는 BGR, Matplotlib은 RGB 형식
+img_rgb = cv.cvtColor(img, cv.COLOR_BGR2RGB) 
 
 gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 
@@ -16,7 +16,7 @@ results = img_rgb.copy()
 if lines is not None:
     for line in lines:
         x1, y1, x2, y2 = line[0]
-        cv.line(results, (x1, y1), (x2, y2), (255, 0, 0), 2)  # 빨간색 (R=255, G=0, B=0), 두께=2
+        cv.line(results, (x1, y1), (x2, y2), (255, 0, 0), 2) 
 
 
 

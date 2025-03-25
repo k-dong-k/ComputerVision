@@ -5,11 +5,12 @@ import matplotlib.pyplot as plt
 img = cv.imread('soccer.jpg')
 gray = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
 
-grad_x = cv.Sobel(gray, cv.CV_64F, 1, 0, ksize = 3) # 소벨 연산자 적용
+grad_x = cv.Sobel(gray, cv.CV_64F, 1, 0, ksize = 3) 
 grad_y = cv.Sobel(gray, cv.CV_64F, 0, 1, ksize = 3)
 
 edge_strength = cv.magnitude(grad_x, grad_y)
-edge_strength = cv.convertScaleAbs(edge_strength)  # uint8 변환
+#edge_strength = cv.convertScaleAbs(edge_strength) 
+
 '''
 cv.imshow('Original', gray)
 cv.imshow('sobelx', grad_x)
