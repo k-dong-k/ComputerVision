@@ -144,13 +144,16 @@ row, col = img.shape[:2]
 cp = (col / 2, row / 2) 
 rot = cv.getRotationMatrix2D(cp, 45, 1.5)
 ```
+이미지를 불러온 후 이미지의 중심을 계산하여 회전 중심을 설정, 회전 각도는 45도, 확대 비율은 1.5배로 설정
 
 
 cv.warpAffine()를 사용하여 이미지를 회전 및 확대, cv.INTER_LINEAR을 사용하여 선형보간을 적용
 
      dst = cv.warpAffine(img, rot, (int(col * 1.5), int(row * 1.5)), flags = cv.INTER_LINEAR)
 
-     
+
+선형 보간은 이미지의 회전과 크기 조정에서 발생할 수 있는 픽셀 간의 공백을 인접한 픽셀 값을 이용해 채움, 이미지가 확대되거나 회전할 때 부드럽고 자연스러운 결과를 제공함.
+
 
 원본이미지와 회전 및 확대 된 이미지를 한 화면에 비교 (비교할때 높이를 맞춰야해서 크기조정)
 ```python
@@ -158,6 +161,31 @@ if img.shape[0] != dst.shape[0]:
     dst = cv.resize(dst, (int(col * 1.5), img.shape[0]))
   
 result = np.hstack([img, dst])
+```
+
+
+전체코드
+```python
+import cv2 as cv
+import numpy as np
+import sys
+
+img = cv.imread('tree.png')
+
+row, col = img.shape[:2]
+cp = (col / 2, row / 2) 
+rot = cv.getRotationMatrix2D(cp, 45, 1.5) 
+dst = cv.warpAffine(img, rot, (int(col * 1.5), int(row * 1.5)), flags = cv.INTER_LINEAR)
+
+if img.shape[0] != dst.shape[0]:
+    dst = cv.resize(dst, (int(col * 1.5), img.shape[0]))
+  
+result = np.hstack([img, dst])
+
+cv.imshow('result', result)
+
+cv.waitKey()
+cv.destroyAllWindows()
 ```
 
 
