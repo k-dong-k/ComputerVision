@@ -21,6 +21,10 @@ Cv.threshold()를 사용하여 이진화,  Cv.calcHist()를 사용하여 히스�
      h = cv.calcHist([bin_img],[0],None,[256],[0,256])
 
 
+Otsu의 이진화 방법: Otsu의 방법은 두 클래스(객체와 배경)의 분산을 최소화하는 임계값을 찾습니다. 이 방법은 히스토그램을 분석하여, 두 클래스 간의 구분이 잘 되도록 해줌.
+
+
+
 전체 코드
 ```python
 import cv2 as cv
@@ -49,11 +53,12 @@ plt.show()
 
 
 
-이진화의 경우 0과1로만 나오기떄문에 히스토그램이 아래와 같은 형태로 나옴
+이진화의 경우 0과 255로만 나오기떄문에 히스토그램이 아래와 같은 형태로 나옴
 
 ![image](https://github.com/user-attachments/assets/99e102a7-6680-47cf-ab07-080794a28920)
 
 
+이 과정을 통해 객체와 배경의 구분이 어떻게 이루어지는지 명확히 보여줄 수 있다.
 
 ---
 
@@ -73,6 +78,18 @@ eroding = cv.morphologyEx(b, cv.MORPH_ERODE, se)
 opening = cv.morphologyEx(b, cv.MORPH_OPEN, se)
 closing = cv.morphologyEx(b, cv.MORPH_CLOSE, se)
 ```
+
+Cv.threshold()를 사용하여 이진화
+
+```python
+t, bin_img = cv.threshold(img[:,:,3], 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU)
+plt.imshow(bin_img, cmap='gray')
+plt.xticks([]), plt.yticks([])
+plt.show()
+```
+
+이미지를 이진화할 때 알파 채널(투명도)을 사용하여, 배경과 객체를 분리, 이때 Otsu의 방법을 사용하여 최적의 임계값을 자동으로 계산하여 이진화를 수행
+
 
 전체 코드
 ```python
@@ -112,11 +129,13 @@ cv.destroyAllWindows()
 ![image](https://github.com/user-attachments/assets/b5e9053f-36f6-4e2c-8770-568863bc67af)
 
 
+
 ---
 
 컴퓨터 비전 1주차 실습 과제 3번
 
 ![image](https://github.com/user-attachments/assets/74e0a705-242d-4887-a3d3-0633f9785242)
+
 
 
 cv.getRotationMatrix2D()를 사용하여 회전 변환 행렬을생성
@@ -125,9 +144,13 @@ row, col = img.shape[:2]
 cp = (col / 2, row / 2) 
 rot = cv.getRotationMatrix2D(cp, 45, 1.5)
 ```
+
+
 cv.warpAffine()를 사용하여 이미지를 회전 및 확대, cv.INTER_LINEAR을 사용하여 선형보간을 적용
 
      dst = cv.warpAffine(img, rot, (int(col * 1.5), int(row * 1.5)), flags = cv.INTER_LINEAR)
+
+     
 
 원본이미지와 회전 및 확대 된 이미지를 한 화면에 비교 (비교할때 높이를 맞춰야해서 크기조정)
 ```python
@@ -136,6 +159,8 @@ if img.shape[0] != dst.shape[0]:
   
 result = np.hstack([img, dst])
 ```
+
+
 결과화면
 
 ![image](https://github.com/user-attachments/assets/1050d58d-e539-4655-871f-e5fcd216c040)
