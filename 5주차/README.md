@@ -197,12 +197,13 @@ print('특징점 개수 : ', len(kp1), len(kp2))
 
 start = time.time()
 
-flann_matcher = cv.FlannBasedMatcher()
-knn_match = flann_matcher.knnMatch(des1, des2, 2)
 """
 bf_matcher = cv.BFMatcher(cv.NORM_L2, crossCheck=False)
 knn_match = bf_matcher.knnMatch(des1, des2, 2)
 """
+
+flann_matcher = cv.FlannBasedMatcher()
+knn_match = flann_matcher.knnMatch(des1, des2, 2)
 
 T = 0.7
 good_match = []
@@ -215,28 +216,30 @@ img_match = np.empty((max(img1.shape[0], img2.shape[0]), img1.shape[1] + img2.sh
 cv.drawMatches(img1, kp1, img2, kp2, good_match, img_match, flags = cv.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
 
 
-plt.figure(figsize=(12, 6))
-plt.imshow(cv.cvtColor(img_match, cv.COLOR_BGR2RGB))
-plt.axis('off')
-plt.title('FLANN-Based Feature Matching')
-plt.show()
 """
-
 plt.figure(figsize=(12, 6))
 plt.imshow(cv.cvtColor(img_match, cv.COLOR_BGR2RGB))
 plt.axis('off')
 plt.title('bf-Based Feature Matching')
 plt.show()
 """
+
+plt.figure(figsize=(12, 6))
+plt.imshow(cv.cvtColor(img_match, cv.COLOR_BGR2RGB))
+plt.axis('off')
+plt.title('FLANN-Based Feature Matching')
+plt.show()
+
 ```
 
 ### 실행 결과
 
+bf-based
 ![image](https://github.com/user-attachments/assets/683ab8de-1c77-4d14-9b2a-2fb63b5c83c7)
 
 ![image](https://github.com/user-attachments/assets/bca6b626-e8cd-4b44-a3bb-ffcfba967b41)
 
-
+FLANN-based
 ![image](https://github.com/user-attachments/assets/e4cbcc50-d28e-4c56-94b8-143bfc98e9e7)
 
 ![image](https://github.com/user-attachments/assets/bb38d169-f138-4031-8366-046e363116de)
