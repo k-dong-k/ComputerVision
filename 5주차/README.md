@@ -56,6 +56,7 @@ kp, des = sift.detectAndCompute(gray, None)
 
 * cv.drawKeypoints() 함수는 검출된 특징점을 이미지에 그려서 시각화
 * flags=cv.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS는 특징점을 풍부한 정보를 포함한 형태로 그리기 위한 옵션 -> 특징점의 크기와 방향 등도 함께 표시
+* 원의 크기는 특징점이 검출된 스케일 크기의 영향을 받으며, 검출된 스케일에 비례하는 크기의 원이 그려짐(원이 클수록 해당 특징점은 더 큰 영역에서 의미 있는 패턴을 가지고 있으며, 작은 원은 더 세밀한 특징을 나타낸다고 해석할 수 있음)
 
 
 ### 이미지 출력
@@ -114,7 +115,7 @@ plt.show()
 
 
 
-# 2. SIFT를 이용한두영상간특징점매칭
+# 2. SIFT를 이용한 두 영상간 특징점 매칭
 
 
 📢 설명
@@ -195,6 +196,12 @@ kp2, des2 = sift.detectAndCompute(gray2, None)
 print('특징점 개수 : ', len(kp1), len(kp2))
 
 start = time.time()
+
+"""
+bf_matcher = cv.BFMatcher(cv.NORM_L2, crossCheck=False)
+knn_match = bf_matcher.knnMatch(des1, des2, 2)
+"""
+
 flann_matcher = cv.FlannBasedMatcher()
 knn_match = flann_matcher.knnMatch(des1, des2, 2)
 
@@ -209,20 +216,40 @@ img_match = np.empty((max(img1.shape[0], img2.shape[0]), img1.shape[1] + img2.sh
 cv.drawMatches(img1, kp1, img2, kp2, good_match, img_match, flags = cv.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
 
 
+"""
+plt.figure(figsize=(12, 6))
+plt.imshow(cv.cvtColor(img_match, cv.COLOR_BGR2RGB))
+plt.axis('off')
+plt.title('bf-Based Feature Matching')
+plt.show()
+"""
+
 plt.figure(figsize=(12, 6))
 plt.imshow(cv.cvtColor(img_match, cv.COLOR_BGR2RGB))
 plt.axis('off')
 plt.title('FLANN-Based Feature Matching')
 plt.show()
+
 ```
 
 ### 실행 결과
 
+bf-based
+![image](https://github.com/user-attachments/assets/683ab8de-1c77-4d14-9b2a-2fb63b5c83c7)
+
+![image](https://github.com/user-attachments/assets/bca6b626-e8cd-4b44-a3bb-ffcfba967b41)
+
+FLANN-based
 ![image](https://github.com/user-attachments/assets/e4cbcc50-d28e-4c56-94b8-143bfc98e9e7)
 
+![image](https://github.com/user-attachments/assets/bb38d169-f138-4031-8366-046e363116de)
 
 
-# 3. 호모그래피를이용한이미지정합(Image Alignment)
+* FLANN은 근사 최근접 이웃(Approximate Nearest Neighbor) 검색을 위해 KD-Tree 또는 K-Means Tree를 사용 이 방식은 대량의 특징점(수천~수만 개) 을 처리할 때 효과적이지만, 작은 데이터셋에서는 오히려 불필요한 연산이 많아질 수 있음.
+
+* BFMatcher는 단순히 모든 특징점을 비교하는 방식이므로 작은 데이터셋에서는 빠르게 작동.
+
+# 3. 호모그래피를 이용한 이미지 정합(Image Alignment)
 
 📢 설명
 
