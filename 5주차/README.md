@@ -56,6 +56,7 @@ kp, des = sift.detectAndCompute(gray, None)
 
 * cv.drawKeypoints() 함수는 검출된 특징점을 이미지에 그려서 시각화
 * flags=cv.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS는 특징점을 풍부한 정보를 포함한 형태로 그리기 위한 옵션 -> 특징점의 크기와 방향 등도 함께 표시
+* 원의 크기는 특징점이 검출된 스케일 크기의 영향을 받으며, 검출된 스케일에 비례하는 크기의 원이 그려짐(원이 클수록 해당 특징점은 더 큰 영역에서 의미 있는 패턴을 가지고 있으며, 작은 원은 더 세밀한 특징을 나타낸다고 해석할 수 있음)
 
 
 ### 이미지 출력
@@ -195,8 +196,13 @@ kp2, des2 = sift.detectAndCompute(gray2, None)
 print('특징점 개수 : ', len(kp1), len(kp2))
 
 start = time.time()
+
 flann_matcher = cv.FlannBasedMatcher()
 knn_match = flann_matcher.knnMatch(des1, des2, 2)
+"""
+bf_matcher = cv.BFMatcher(cv.NORM_L2, crossCheck=False)
+knn_match = bf_matcher.knnMatch(des1, des2, 2)
+"""
 
 T = 0.7
 good_match = []
@@ -214,11 +220,26 @@ plt.imshow(cv.cvtColor(img_match, cv.COLOR_BGR2RGB))
 plt.axis('off')
 plt.title('FLANN-Based Feature Matching')
 plt.show()
+"""
+
+plt.figure(figsize=(12, 6))
+plt.imshow(cv.cvtColor(img_match, cv.COLOR_BGR2RGB))
+plt.axis('off')
+plt.title('bf-Based Feature Matching')
+plt.show()
+"""
 ```
 
 ### 실행 결과
 
+![image](https://github.com/user-attachments/assets/683ab8de-1c77-4d14-9b2a-2fb63b5c83c7)
+
+![image](https://github.com/user-attachments/assets/bca6b626-e8cd-4b44-a3bb-ffcfba967b41)
+
+
 ![image](https://github.com/user-attachments/assets/e4cbcc50-d28e-4c56-94b8-143bfc98e9e7)
+
+![image](https://github.com/user-attachments/assets/bb38d169-f138-4031-8366-046e363116de)
 
 
 
