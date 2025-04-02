@@ -15,9 +15,7 @@ kp2, des2 = sift.detectAndCompute(gray2, None)
 print('특징점 개수 : ', len(kp1), len(kp2))
 
 start = time.time()
-index_params = dict(algorithm=1, trees=5) 
-search_params = dict(checks=50) 
-flann_matcher = cv.FlannBasedMatcher(index_params, search_params)
+flann_matcher = cv.FlannBasedMatcher()
 knn_match = flann_matcher.knnMatch(des1, des2, 2)
 
 T = 0.7

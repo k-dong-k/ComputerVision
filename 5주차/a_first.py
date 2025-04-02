@@ -22,6 +22,3 @@ plt.title('SIFT Image')
 plt.axis('off')
 
 plt.show()
-
-k = cv.waitKey()
-cv.destroyAllWindows()
