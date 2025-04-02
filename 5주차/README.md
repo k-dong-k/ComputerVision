@@ -335,7 +335,7 @@ plt.figure(figsize=(12, 6))
     
 plt.subplot(1, 3, 1)
 plt.imshow(cv.cvtColor(img1, cv.COLOR_BGR2RGB))
-plt.title("Original Cropped Image")
+plt.title("Image 1")
 plt.axis('off')
 
 plt.subplot(1, 3, 2)
@@ -345,7 +345,7 @@ plt.axis('off')
 
 plt.subplot(1, 3, 3)
 plt.imshow(cv.cvtColor(img2, cv.COLOR_BGR2RGB))
-plt.title("Image")
+plt.title("Image 2")
 plt.axis('off')
 
 plt.show()
@@ -369,7 +369,8 @@ plt.show()
 
 ### 실행결과
 
-![image](https://github.com/user-attachments/assets/8f0b5c91-15fe-41c2-9ab1-fb7b422566c9)
+![image](https://github.com/user-attachments/assets/afb75c79-a947-4ab6-8c40-aca7134ed3a1)
+
 
 
 ![image](https://github.com/user-attachments/assets/daed1897-da82-4152-8849-ccc75c757232)
