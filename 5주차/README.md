@@ -245,6 +245,9 @@ FLANN-based
 ![image](https://github.com/user-attachments/assets/bb38d169-f138-4031-8366-046e363116de)
 
 
+* FLANN은 근사 최근접 이웃(Approximate Nearest Neighbor) 검색을 위해 KD-Tree 또는 K-Means Tree를 사용 이 방식은 대량의 특징점(수천~수만 개) 을 처리할 때 효과적이지만, 작은 데이터셋에서는 오히려 불필요한 연산이 많아질 수 있음.
+
+* BFMatcher는 단순히 모든 특징점을 비교하는 방식이므로 작은 데이터셋에서는 빠르게 작동.
 
 # 3. 호모그래피를이용한이미지정합(Image Alignment)
 
