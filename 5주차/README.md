@@ -272,7 +272,7 @@ knn_match = bf_matcher.knnMatch(des1, des2, 2)  # 최근접 2개
 ### 변환된 이미지를 원본 이미지와 비교하여 출력
 ```python
 plt.figure(figsize=(12, 6))
-
+    
 plt.subplot(1, 3, 1)
 plt.imshow(cv.cvtColor(img1, cv.COLOR_BGR2RGB))
 plt.title("Original Cropped Image")
@@ -291,7 +291,7 @@ plt.axis('off')
 plt.show()
 ```
 
-* 첫 번째 이미지는 원본 크롭된 이미지
+* 첫 번째 이미지는 이미지 1
 * 두 번째 이미지는 호모그래피 변환이 적용된 이미지
 * 세 번째 이미지는 이미지 2
 
@@ -302,7 +302,7 @@ import cv2 as cv
 import numpy as np
 import matplotlib.pyplot as plt
 
-img1 = cv.imread('img1.jpg')[190:350, 440:560] #버스를 크롭하여 모델 영상으로 사용
+img1 = cv.imread('img1.jpg')
 gray1 = cv.cvtColor(img1, cv.COLOR_BGR2GRAY)
 img2 = cv.imread('img2.jpg')
 gray2 = cv.cvtColor(img2, cv.COLOR_BGR2GRAY)
@@ -328,6 +328,9 @@ H, _ = cv.findHomography(points1, points2, cv.RANSAC)
 h2, w2 = img2.shape[:2]
 img1_warped = cv.warpPerspective(img1, H, (w2, h2))
 
+alpha = 0.5  # 투명도 조절 (0.5면 반반 섞임)
+blended = cv.addWeighted(img1_warped, alpha, img2, 1 - alpha, 0)
+
 plt.figure(figsize=(12, 6))
     
 plt.subplot(1, 3, 1)
@@ -350,17 +353,26 @@ plt.show()
 img_match = cv.drawMatches(img1, kp1, img2, kp2, good_match, None, flags=cv.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
 
 plt.figure(figsize=(12, 6))
-plt.imshow(cv.cvtColor(img_match, cv.COLOR_BGR2RGB))
-plt.title("Result")
+plt.imshow(cv.cvtColor(blended, cv.COLOR_BGR2RGB))
+plt.title("Blended Image")
 plt.axis('off')
 plt.show()
+
+img_match = cv.drawMatches(img1, kp1, img2, kp2, good_match, None, flags=cv.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
+plt.figure(figsize=(12, 6))
+plt.imshow(cv.cvtColor(img_match, cv.COLOR_BGR2RGB))
+plt.title("Feature Matches")
+plt.axis('off')
+plt.show()
+
 ```
 
 ### 실행결과
 
-![image](https://github.com/user-attachments/assets/4c4dc593-5c09-48f5-9c3c-d10b8d35b231)
+![image](https://github.com/user-attachments/assets/8f0b5c91-15fe-41c2-9ab1-fb7b422566c9)
 
 
-![image](https://github.com/user-attachments/assets/5372fdb6-0842-41c0-8439-b9718a5cb97b)
+![image](https://github.com/user-attachments/assets/daed1897-da82-4152-8849-ccc75c757232)
 
 
+![image](https://github.com/user-attachments/assets/6030eae9-0e06-4453-9a59-6f9fa9ea14a9)
