@@ -35,7 +35,7 @@ history = model.fit(x_train, y_train, epochs=10,
 
 # 6. 성능 평가
 test_loss, test_acc = model.evaluate(x_test, y_test, verbose=2)
-print(f'\n✅ 테스트 정확도: {test_acc:.4f}')
+print(f'\n 테스트 정확도: {test_acc:.4f}')
 
 # 7. 테스트 이미지 예측
 predictions = model.predict(x_test)
