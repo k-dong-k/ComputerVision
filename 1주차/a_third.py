@@ -25,12 +25,3 @@ while(True):
         cv.destroyAllWindows()
         break
 
-""" 
-cv.rectangle(img, (100,200), (300,450), (0,0,255), 2) #직사각형 그리기
-cv.putText(img, 'mouse', (200,300), cv.FONT_HERSHEY_SIMPLEX,1,(255,0,0),2) #글씨 쓰기
-
-cv.imshow('Draw',img)
-
-cv.waitKey(0)
-cv.destroyAllWindows()
-"""
