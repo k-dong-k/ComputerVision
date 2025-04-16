@@ -221,6 +221,10 @@ cv.destroyAllWindows()
 ### 실행 결과
 
 
+![스크린샷 2025-04-16 093723](https://github.com/user-attachments/assets/195d211b-0005-4d04-9e49-14b8a41c5493)
+
+
+
 # 2. Mediapipe를 활용한 얼굴 랜드마크 추출 및 시각화
 
 📢 설명
@@ -367,6 +371,7 @@ cv.destroyAllWindows()
 
 ### 결과 화면
 
+![image](https://github.com/user-attachments/assets/a70f2af8-6d0e-4fb8-a743-1f71bf87ef9b)
 
 
 
